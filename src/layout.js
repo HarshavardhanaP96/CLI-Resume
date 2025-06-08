@@ -5,9 +5,10 @@ import stripAnsi from "strip-ansi";
 import { contactInfo, leftColumn, rightColumn } from "./content.js";
 
 const terminalWidth = Math.min(process.stdout.columns || 80, 120);
-const columnGap = 4;
+const columnGap = 2;
 const boxPadding = 1;
-const colWidth = Math.floor((terminalWidth - columnGap) / 2);
+const leftColWidth = Math.floor((terminalWidth - columnGap) / 3);
+const rightColWidth = terminalWidth - columnGap - leftColWidth;
 
 const wrapBoxContent = (lines, width) =>
   wrapAnsi(lines.join("\n"), width - 2 * boxPadding, { hard: true }).split(
@@ -24,12 +25,12 @@ const formatSubTitle = (title, org, duration) =>
 
 const bullet = (text) => chalk.gray("  • ") + text;
 
-const createBox = (emoji, title, lines) => {
+const createBox = (emoji, title, lines, width) => {
   const sectionHeader = formatSectionTitle(emoji, title);
-  const wrappedContent = wrapBoxContent([sectionHeader, ...lines], colWidth);
+  const wrappedContent = wrapBoxContent([sectionHeader, ...lines], width);
   return boxen(wrappedContent.join("\n"), {
     padding: boxPadding,
-    width: colWidth,
+    width,
     borderColor: "gray",
   });
 };
@@ -65,7 +66,7 @@ const zipColumns = (leftBoxes, rightBoxes) => {
     const maxLines = Math.max(left.length, right.length);
 
     for (let j = 0; j < maxLines; j++) {
-      const leftLine = stripAnsi(left[j] || "").padEnd(colWidth);
+      const leftLine = stripAnsi(left[j] || "").padEnd(leftColWidth);
       const rightLine = right[j] || "";
       lines.push(`${leftLine}${" ".repeat(columnGap)}${rightLine}`);
     }
@@ -79,7 +80,7 @@ export const renderResume = () => {
   const header = createHeader();
 
   const leftBoxes = Object.entries(leftColumn).map(([section, items]) =>
-    createBox("📘", section, items.map(bullet))
+    createBox("📘", section, items.map(bullet), leftColWidth)
   );
 
   const rightBoxes = Object.entries(rightColumn).map(([section, entries]) => {
@@ -92,7 +93,7 @@ export const renderResume = () => {
         "",
       ];
     });
-    return createBox("🛠️", section, formatted);
+    return createBox("🛠️", section, formatted, rightColWidth);
   });
 
   const twoCols = zipColumns(leftBoxes, rightBoxes);

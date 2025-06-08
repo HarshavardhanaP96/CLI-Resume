@@ -21,14 +21,19 @@ export const leftColumn = {
     "MongoDB",
     "AWS",
   ],
-  Education: ["B.Sc. in CS — Tech University (2014–2018)", "Percentage: 70"],
+  Education: [
+    `B.E. [Mechanical]
+    Vivekananda College of Engineering and technology
+    [2014–2018]
+    Percentage: 70`,
+  ],
 };
 export const rightColumn = {
   Experience: [
     {
       title: "Web Development Intern",
       org: "TechCorp Solutions",
-      duration: "2024 – Present",
+      duration: "Apr 2024 – Present",
       highlights: [
         "Design database for IOT project",
         "Improved system performance by 40% by optimizing the query",
@@ -38,7 +43,7 @@ export const rightColumn = {
     {
       title: "Java Techincal Support",
       org: "Glowtouch Solutions",
-      duration: "2022 – 2024",
+      duration: "Jan 2022 – Mar 2024",
       highlights: [
         "Upgraded Java modules",
         "Optimised the query",
