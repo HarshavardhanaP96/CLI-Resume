@@ -1,0 +1,20 @@
+{
+  "name": "npmclipackage",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "bin": {
+    "@harshavardhanap": "./bin/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "boxen": "^8.0.1",
+    "chalk": "^5.4.1",
+    "strip-ansi": "^7.1.0",
+    "typescript": "^5.8.3",
+    "wrap-ansi": "^9.0.0"
+  }
+}
